@@ -134,6 +134,7 @@ def load_files(worldFOlder):
 if __name__ == '__main__':
 
     developer_sentences, train_sentences = load_files(TREEBANK_TO_IMPORT)
+
     if not developer_sentences or not train_sentences:
         print("Failed to import! ")
 
