@@ -5,13 +5,17 @@ __author__ ='Hirad Emami Alagha'
 #required libs
 import numpy as np
 import os
+import random as rd
+import math as math
 
 ############################################
 #               Global Parameters          #
 ############################################
 
 PRIMARY_DIRECTORY = 'Treebanks'
+PRIMARY_OUTPUT_DIRECTORY = 'GeneratedData'
 TREEBANK_TO_IMPORT = 'UD_English-LinES'
+TEST_PERCENTAGE = 0.1
 
 
 
@@ -128,7 +132,57 @@ def load_files(worldFOlder):
     return developer_sentences, train_sentences
 
 
+def save_results(train_train, train_test, dev_train, dev_test):
+#The primary Directory for files is a folder called Generated_data
 
+        #The output folder to save all the information of the world is saved as:
+        #world+(the user-given name)+ width + height + number of obstacles
+        outputDirect = PRIMARY_OUTPUT_DIRECTORY+'/'+str(TREEBANK_TO_IMPORT)
+
+        #if the primary path of PRIMARY_OUTPUT_DIRECTORY does not exist create a new folder
+        if not os.path.exists(PRIMARY_OUTPUT_DIRECTORY):
+            print("creating The primary folder under " + PRIMARY_OUTPUT_DIRECTORY)
+            os.makedirs(PRIMARY_OUTPUT_DIRECTORY)
+            print(" The Folder for all saved worlds is created! \n The directory is : " + PRIMARY_OUTPUT_DIRECTORY)
+        else:
+             print("Creating new Save File!")
+
+        # if the main path of particular treebank does not exist create a new folder
+        if not os.path.exists(outputDirect):
+            print("creating The primary folder under " + outputDirect)
+            os.makedirs(outputDirect)
+        else:
+            print("The new world is saved in MARL/: " + outputDirect)
+
+        #call function to save the files
+        save_file(outputDirect=outputDirect,argName="train_train",argList=train_train)
+        save_file(outputDirect=outputDirect,argName="train_test",argList=train_test)
+        save_file(outputDirect=outputDirect,argName="dev_test",argList=dev_test)
+        save_file(outputDirect=outputDirect,argName="dev_train",argList=dev_train)
+
+
+#the save function that specifically saves the world, this function is also used for visualization
+def save_file(outputDirect,argName,argList):
+    # saving the main grid
+    file_1 = open(outputDirect + "/"+argName, 'w')
+    # the primary loop for grid
+    for i in range(len(argList)):
+        for j in range(len(argList[i])):
+            # writing the values of cells
+            file_1.write(str(argList[i][j]))
+    # closing the file
+    file_1.close()
+
+def generate_data(argList):
+    np.random.shuffle(argList)
+    test_counter = math.ceil(TEST_PERCENTAGE*len(argList))
+    test_set = []
+    train_set = []
+    for i in range(test_counter):
+        test_set.append(argList[i])
+    for i in range(test_counter,len(argList)):
+        train_set.append(argList[i])
+    return test_set, train_set
 
 
 if __name__ == '__main__':
@@ -138,4 +192,21 @@ if __name__ == '__main__':
     if not developer_sentences or not train_sentences:
         print("Failed to import! ")
 
+
+    print("______GENERATING DATA_______")
+    train_test,train_train= generate_data(train_sentences)
+    dev_test,dev_train = generate_data(developer_sentences)
+    print("______GENERATING DATA COMPLETED_______")
+    print("Total sentences in Training: "+str(len(train_sentences)))
+    print("Training set of Training: " + str(len(train_train)))
+    print("Testing set of Training: " + str(len(train_test)))
+    print("############################")
+    print("Total sentences in Developer: "+str(len(developer_sentences)))
+    print("Training set of developer: " + str(len(dev_train)))
+    print("Testing set of developer: " + str(len(dev_test)))
+    print("______Saving Data_______")
+    save_results(dev_test=dev_test, dev_train=dev_train,
+                 train_test=train_test,train_train=train_train)
+    print("______Saved the Data_______")
+    print("______BYEEEEEEEEEE LOL :D_______")
 
