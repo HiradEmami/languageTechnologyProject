@@ -7,6 +7,7 @@ import numpy as np
 import os
 import random as rd
 import math as math
+import sys
 
 ############################################
 #               Global Parameters          #
@@ -14,7 +15,7 @@ import math as math
 
 PRIMARY_DIRECTORY = 'Treebanks'
 PRIMARY_OUTPUT_DIRECTORY = 'GeneratedData'
-TREEBANK_TO_IMPORT = 'UD_English-LinES'
+TREEBANK_TO_IMPORT = sys.argv[1]
 TEST_PERCENTAGE = 0.1
 
 
@@ -120,14 +121,14 @@ def load_files(worldFOlder):
 
     print("_________Loading Sentences Completed_________")
     print("_________Loading Sentences Completed_________")
-    accepted_developer, accepted_train= validate(developer_sentences=developer_sentences,
-                                                 train_sentences=train_sentences,num_sentence_1=num_sentence_1,
-                                                 num_sentence_2=num_sentence_2)
-    if accepted_train and accepted_developer:
-        print("_________All data imported successfully_________")
-    else:
-        print("_________Error in importing _________")
-        return [],[]
+#    accepted_developer, accepted_train= validate(developer_sentences=developer_sentences,
+#                                                 train_sentences=train_sentences,num_sentence_1=num_sentence_1,
+#                                                 num_sentence_2=num_sentence_2)
+#    if accepted_train and accepted_developer:
+#        print("_________All data imported successfully_________")
+#    else:
+#        print("_________Error in importing _________")
+#        return [],[]
 
     return developer_sentences, train_sentences
 
@@ -175,7 +176,7 @@ def save_file(outputDirect,argName,argList):
 
 def generate_data(argList):
     np.random.shuffle(argList)
-    test_counter = math.ceil(TEST_PERCENTAGE*len(argList))
+    test_counter = int(math.ceil(TEST_PERCENTAGE*len(argList)))
     test_set = []
     train_set = []
     for i in range(test_counter):
