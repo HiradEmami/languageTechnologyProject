@@ -8,14 +8,12 @@
 library(stringr)
 
 ######
-  #folder <- "~/Dropbox/LTP/languageTechnologyProject_myown/GeneratedData/UD_Dutch-Alpino/"  # path to folder   
+  #folder <- "~/Dropbox/LTP/languageTechnologyProject/GeneratedData/UD_Dutch-Alpino/"  # path to folder   
   #folder <- "~/Dropbox/LTP/languageTechnologyProject/GeneratedData/UD_Dutch-LassySmall/"  # path to folder   
   #folder <- "~/Dropbox/LTP/languageTechnologyProject/GeneratedData/UD_English-EWT/"  # path to folder   
-  #folder <- "~/Dropbox/LTP/languageTechnologyProject/GeneratedData/UD_English-GUM/"  # path to folder   
-  #folder <- "~/Dropbox/LTP/languageTechnologyProject/GeneratedData/UD_English-LinES/"  # path to folder   
   folder <- "~/Dropbox/LTP/languageTechnologyProject/GeneratedData/UD_English-PUD/"  # path to folder   
 
-  #titlegraph = "Occurance per label in English-LinES" ## Put here the name of the treebank you used
+  #titlegraph = "O ccurance per label in English-LinES" ## Put here the name of the treebank you used
   titlegraph = folder
   
   
