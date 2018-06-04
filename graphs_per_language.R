@@ -88,10 +88,15 @@ library(stringr)
   UD_table_English$percentage_ewt<-prop.table(UD_table_English$ewt)
   UD_table_English$percentage_pud<-prop.table(UD_table_English$pud)
 
+  UD_table_Dutch$percentage_alpino<-UD_table_Dutch$percentage_alpino * 100
+  UD_table_Dutch$percentage_lassysmall<- UD_table_Dutch$percentage_lassysmall * 100
+  UD_table_English$percentage_ewt<- UD_table_English$percentage_ewt * 100
+  UD_table_English$percentage_pud<- UD_table_English$percentage_pud * 100
+  
 #### DUTCH: Make graph of n datafiles 
   n = 2 ## number of datafiles
   combined_percentage <- rbind(UD_table_Dutch$percentage_alpino,UD_table_Dutch$percentage_lassysmall)
-  barplot(combined_percentage,beside=T, main="Dutch",names.arg=UD_table_Dutch$label,las=2, col=rainbow(n))
+  barplot(combined_percentage,beside=T, main="Dutch",names.arg=UD_table_Dutch$label,las=2, col=rainbow(n), ylab="percentage", ylim=c(0,16))
   ## legend is to big
   legend("topleft", legend = c("alpino","lassysmall"), fill=rainbow(n), ncol = 1,cex = 0.8, bty="n")
   
@@ -99,6 +104,7 @@ library(stringr)
 #### ENGLISH: Make graph of n datafiles 
   n = 2 ## number of datafiles
   combined_percentage <- rbind(UD_table_English$percentage_ewt,UD_table_English$percentage_pud)
-  barplot(combined_percentage,beside=T, main="Enghlish",names.arg=UD_table_English$label,las=2, col=rainbow(n))
+  #####
+  barplot(combined_percentage,beside=T, main="English",names.arg=UD_table_English$label,las=2, col=rainbow(n), ylab="percentage", ylim=c(0,13))
   ## legend is to big
   legend("topleft", legend = c("ewt","pud"), fill=rainbow(n), ncol = 1,cex = 0.8, bty="n")
